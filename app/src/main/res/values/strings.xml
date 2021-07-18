@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">MovieAppKotlin</string>
-    <string name="title_movies">Peliculas</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="decripction">Esta es una descripcion de las cosas</string>
-    <string name="hola_hello">Hola Mundo</string>
+<string name="app_name">MovieAppKotlin</string>
+<string name="title_movies">Peliculas</string>
+<string name="title_dashboard">Dashboard</string>
+<string name="title_notifications">Notifications</string>
+<string name="decripction">Esta es una descripcion de las cosas</string>
+<string name="hola_hello">Hola Mundo</string>
 </resources>

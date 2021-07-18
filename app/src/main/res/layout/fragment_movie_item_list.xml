@@ -8,6 +8,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/bottom_padding_list_movies"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.movies.MovieItemFragment"
     tools:listitem="@layout/fragment_movie_item" />
