@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/primary_dark_color</item>
+        <item name="android:navigationBarColor">@color/primary_color</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:navigationBarDividerColor">?colorControlHighlight</item>
+    </style>
+</resources>

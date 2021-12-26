@@ -11,6 +11,14 @@
         <item name="colorOnSecondary">@color/secondary_text_color</item>
         <item name="android:colorBackground">@color/primary_light_color</item>
         <item name="colorOnBackground">@color/primary_text_color</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MovieApp.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MovieApp.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MovieApp.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MovieApp.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MovieApp.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MovieApp.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MovieApp.Overline</item>
+
     </style>
     <!-- Base application theme. -->
     <style name="Base.Theme" parent="Theme.MaterialComponents.Light.DarkActionBar">
