@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.bumptech.glide.Glide
 import com.oucs.movieappkotlin.R
 import com.oucs.movieappkotlin.common.Constantes
 import com.oucs.movieappkotlin.common.MyApp
@@ -38,13 +37,6 @@ class MyMovieRecyclerViewAdapter(
             placeholder(R.drawable.ic_pelicula)
             transformations(CircleCropTransformation())
         }
-        /*holder.pictureMovie.setOnClickListener {
-            Toast.makeText(context,item.poster_path,Toast.LENGTH_SHORT).show()
-            Log.i("la imagne es",item.poster_path)
-        }
-        Glide.with(context).load(Constantes.URL_IMAGE+item.poster_path).into(holder.pictureMovie);*/
-
-
     }
 
     override fun getItemCount(): Int = moviesValues.size
