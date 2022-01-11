@@ -1,10 +1,8 @@
 package com.oucs.movieappkotlin.repository
 
-
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import com.oucs.movieappkotlin.common.MovieApp
-import com.oucs.movieappkotlin.retrofit.TheMovieDBClient
+import com.oucs.movieappkotlin.retrofit.MovieNetWork
 import com.oucs.movieappkotlin.retrofit.TheMovieDBService
 import com.oucs.movieappkotlin.retrofit.models.Movie
 import com.oucs.movieappkotlin.retrofit.models.MoviesResponse
@@ -13,39 +11,23 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MovieRepository {
-    private var theMovieDBService:TheMovieDBService?=null
-    private var theMovieDBClient:TheMovieDBClient?=null
-    var popularMovies:MutableLiveData<List<Movie>>?=null
-
-    init {
-        theMovieDBClient=TheMovieDBClient.instance
-        theMovieDBService= theMovieDBClient?.getTheMovieDBService()
-        popularMovies=createPopularMovies()
-    }
-
-    private fun createPopularMovies(): MutableLiveData<List<Movie>>? {
-        if (popularMovies==null){
-            popularMovies=MutableLiveData<List<Movie>>()
-        }
-        //Aqui se hace la peticion del call
-
-        val call: Call<MoviesResponse>?=theMovieDBService?.getPopularMovies()
-        call?.enqueue(object :Callback<MoviesResponse>{
+    private val theMovieDBService:TheMovieDBService = MovieNetWork.getTheMovieDBService()
+    fun getPopularMovies(callback:(List<Movie>?) -> Unit)  {
+        val response = theMovieDBService.getPopularMovies()
+        response.enqueue(object : Callback<MoviesResponse> {
             override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                 if (response.isSuccessful){
-                    popularMovies?.value= response.body()?.results
+                    callback(response.body()?.results)
                 }
                 else{
                     Toast.makeText(MovieApp.instance,"Algo salio mal",Toast.LENGTH_SHORT).show()
+                    callback(null)
                 }
             }
-
             override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
                 Toast.makeText(MovieApp.instance,"Error de conexion",Toast.LENGTH_SHORT).show()
+                callback(null)
             }
-
         })
-
-        return popularMovies
     }
 }

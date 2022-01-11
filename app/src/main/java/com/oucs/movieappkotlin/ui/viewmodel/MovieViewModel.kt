@@ -1,18 +1,25 @@
 package com.oucs.movieappkotlin.ui.viewmodel
 
-import androidx.lifecycle.LiveData
+import android.annotation.SuppressLint
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.oucs.movieappkotlin.repository.MovieRepository
 import com.oucs.movieappkotlin.retrofit.models.Movie
+import kotlinx.coroutines.launch
 
 class MovieViewModel:ViewModel() {
-    private var movieRepository:MovieRepository = MovieRepository()
-    private var popularMovies:LiveData<List<Movie>>
-    init {
-        popularMovies= movieRepository.popularMovies!!
+    private val movieRepository:MovieRepository = MovieRepository()
+    val popularMovies:MutableLiveData<List<Movie>> = MutableLiveData()
 
-    }
-    fun getPopularMovies():LiveData<List<Movie>>{
-        return popularMovies
+    @SuppressLint("NullSafeMutableLiveData")
+    fun loadPopularMovies(){
+        viewModelScope.launch {
+            movieRepository.getPopularMovies{ popular ->
+                if (!popular.isNullOrEmpty()){
+                    popularMovies.value = popular
+                }
+            }
+        }
     }
 }

@@ -1,34 +1,24 @@
 package com.oucs.movieappkotlin.ui.movies
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.oucs.movieappkotlin.databinding.FragmentMovieListBinding
 import com.oucs.movieappkotlin.retrofit.models.Movie
 import com.oucs.movieappkotlin.ui.viewmodel.MovieViewModel
 
 class MovieListFragment : Fragment() {
 
-    private var columnCount = 2
-
-    private lateinit var movieViewModel: MovieViewModel
-    private lateinit var movieAdapter: MovieAdapter
-    private var popularMovies: MutableList<Movie> =ArrayList()
-
     private var resultBinding:FragmentMovieListBinding? = null
     private val binding get() = resultBinding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //Se obtiene una instancia del viewModel
-        movieViewModel = ViewModelProvider(requireActivity())[MovieViewModel::class.java]
-        movieAdapter = MovieAdapter(mutableListOf())
-    }
+    private val movieViewModel: MovieViewModel by activityViewModels()
+    private val movieAdapter: MovieAdapter = MovieAdapter(mutableListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,14 +30,10 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadMovies()
-        binding.movieListView.layoutManager = if (columnCount<=1){
-            LinearLayoutManager(requireContext())
-        }
-        else {
-            GridLayoutManager(requireContext(),columnCount)
-        }
+        movieViewModel.loadPopularMovies()
+        binding.movieListView.layoutManager = GridLayoutManager(requireContext(),2)
         binding.movieListView.adapter = movieAdapter
+        loadMovies()
     }
 
     override fun onDestroyView() {
@@ -56,9 +42,9 @@ class MovieListFragment : Fragment() {
     }
 
     private fun loadMovies(){
-        movieViewModel.getPopularMovies().observe(viewLifecycleOwner, {
-            popularMovies.addAll(it)
-            movieAdapter.setData(popularMovies)
+        movieViewModel.popularMovies.observe(viewLifecycleOwner, {
+            Log.i("Retrofit","actualizando la vista")
+            movieAdapter.setData(it)
         })
     }
 }
