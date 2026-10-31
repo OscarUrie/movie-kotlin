@@ -1,0 +1,5 @@
+## This is a example
+sdk.dir=/Users/your_user_name/Library/Android/sdk
+# https://developer.themoviedb.org/docs/getting-started
+# Replace your_tmdb_api_key by your TMDB api key here
+movie-api-key="your_tmdb_api_key"
