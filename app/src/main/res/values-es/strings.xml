@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="only_in_theaters">Solo en cines</string>
+    <string name="most_popular">Más populares</string>
+    <string name="top_rated">Mejor calificadas</string>
+    <string name="coming_soon">Próximamente</string>
+    <string name="home_ask">¿Qué quieres ver hoy?</string>
+    <string name="language_key">es-MX</string>
+    <string name="main_cast_label">Elenco principal</string>
+    <string name="most_popular_label">Más populares</string>
+    <string name="movie_title">Péliculas</string>
+    <string name="novel_title">Novelas</string>
+    <string name="retry_label">Reintentar</string>
+    <string name="search_label">Buscar</string>
+    <string name="see_trailer">Ver trailer</string>
+    <string name="series_title">Series</string>
+    <string name="see_more">Ver más</string>
+    <string name="something_went_wrong">Algo salió mal</string>
+</resources>

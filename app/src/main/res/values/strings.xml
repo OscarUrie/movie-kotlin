@@ -1,6 +1,22 @@
 <resources>
-    <string name="app_name">MovieAppKotlin</string>
+    <string name="app_name">Movie App</string>
     <string name="title_movies">Peliculas</string>
     <string name="title_detail">Dashboard</string>
     <string name="decripction">Esta es una descripcion de las cosas</string>
+    <string name="only_in_theaters">Only in theaters</string>
+    <string name="most_popular">Most popular</string>
+    <string name="top_rated">Top-rated</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="home_ask">What would you like to watch today?</string>
+    <string name="language_key">en-US</string>
+    <string name="main_cast_label">Main cast</string>
+    <string name="most_popular_label">Most popular</string>
+    <string name="movie_title">Movies</string>
+    <string name="novel_title">Novel</string>
+    <string name="retry_label">Retry</string>
+    <string name="search_label">Search</string>
+    <string name="see_trailer">Watch trailer </string>
+    <string name="series_title">Series</string>
+    <string name="see_more">See more</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

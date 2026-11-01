@@ -11,5 +11,26 @@
     <color name="primary_text_color">#ffffff</color>
     <color name="secondary_text_color">#000000</color>
     <color name="tertiary_color">#01b4e4</color>
+    <color name="primary">#ff0d253f</color>
+    <color name="primaryLight">#ff394d6a</color>
+    <color name="primaryDark">#ff00001a</color>
+    <color name="secondary">#ff90cea1</color>
+    <color name="secondaryLight">#ffc2ffd2</color>
+    <color name="secondaryDark">#ff619d72</color>
+    <color name="primaryText">#ffffffff</color>
+    <color name="secondaryText">#FFBBBBBB</color>
+    <color name="tertiary">#ff01b4e4</color>
+    <color name="backgroundField">#ff36076B</color>
+    <color name="hintField">#FF959697</color>
+    <color name="selectedTab">#FFFF1F8A</color>
+    <color name="unselectedTabText">#66FFFFFF</color>
+    <color name="button1">#FF8000FF</color>
+    <color name="button2">#FF540BA1</color>
+    <color name="background1">#FF15151D</color>
+    <color name="background2">#ff303243</color>
+    <color name="background2Alt">#a6303243</color>
+    <color name="background3">#FF8000FF</color>
+    <color name="background4">#FF21222F</color>
+    <color name="background5">#A6303243</color>
     <color name="ic_launcher_background">#0d253f</color>
 </resources>
