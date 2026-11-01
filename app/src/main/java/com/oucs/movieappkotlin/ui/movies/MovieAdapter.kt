@@ -1,20 +1,20 @@
 package com.oucs.movieappkotlin.ui.movies
 
-import android.annotation.SuppressLint
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.oucs.movieappkotlin.R
 import com.oucs.movieappkotlin.common.Constantes
+import com.oucs.movieappkotlin.databinding.MovieItemBinding
 import com.oucs.movieappkotlin.retrofit.models.Movie
-class MovieAdapter(
-        private var moviesValues: MutableList<Movie>)
-    : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+
+class MovieAdapter(private val adapterListener: AdapterListener) :
+    ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffUtil()) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,30 +23,37 @@ class MovieAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = moviesValues[position]
-        holder.titleMovie.text=item.title
-        holder.raitingMovie.text=item.vote_average.toString()
-        holder.pictureMovie.load(Constantes.URL_IMAGE+item.poster_path){
-            crossfade(true)
-            placeholder(R.drawable.ic_pelicula)
-            transformations(CircleCropTransformation())
-        }
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = moviesValues.size
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(popularMovies: List<Movie>?) {
-        moviesValues.clear()
-        moviesValues.addAll(popularMovies!!)
-        notifyDataSetChanged()
+    private class MovieDiffUtil : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(
+            oldItem: Movie,
+            newItem: Movie
+        ): Boolean = oldItem.id == newItem.id
+
+        override fun areContentsTheSame(
+            oldItem: Movie,
+            newItem: Movie
+        ): Boolean = oldItem.id == newItem.id
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleMovie:TextView=view.findViewById(R.id.tv_title_movie)
-        val raitingMovie:TextView=view.findViewById(R.id.tv_raiting_movie)
-        val pictureMovie:ImageView=view.findViewById(R.id.picture_movie)
-        override fun toString(): String {
-            return super.toString() + " '" + titleMovie.text + "'"
+        private val binding = MovieItemBinding.bind(view)
+
+        init {
+            binding.pictureMovie.setOnClickListener {
+                adapterListener.onClick(getItem(bindingAdapterPosition).id)
+            }
+        }
+
+        fun bind(movie: Movie) {
+            binding.pictureMovie.contentDescription = movie.title
+            binding.pictureMovie.load(Constantes.URL_IMAGE + movie.poster_path) {
+                crossfade(false)
+                placeholder(R.drawable.placeholder)
+                error(R.drawable.placeholder)
+            }
         }
     }
 }

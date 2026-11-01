@@ -1,5 +1,9 @@
 <resources>
 
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="Theme.MovieAppKotlin" parent="Base.Theme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
