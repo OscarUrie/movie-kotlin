@@ -11,7 +11,7 @@ class TheMovieDBInterceptor:Interceptor {
                 .url
                 .newBuilder()
                 .addQueryParameter(Constantes.URL_PARAM_API_KEY,Constantes.MY_API_KEY)
-                .addQueryParameter(Constantes.URL_PARAM_LANGUAGE,"es-Es")
+                .addQueryParameter(Constantes.URL_PARAM_LANGUAGE, Constantes.getLocale())
                 .build()
         var request=chain.request()
         request= request.newBuilder()

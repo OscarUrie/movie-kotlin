@@ -110,4 +110,18 @@ class MovieRepository {
         }
     }
 
+    /**
+     * Get movie videos
+     *
+     * @param id
+     */
+    suspend fun getMovieVideos(id: Int) = withContext(Dispatchers.IO) {
+        try {
+            val response = service.getMovieVideos(id)
+            return@withContext response.body()?.results
+        } catch (e: Exception) {
+            Log.e("Retrofit", "${e.printStackTrace()}")
+            return@withContext null
+        }
+    }
 }

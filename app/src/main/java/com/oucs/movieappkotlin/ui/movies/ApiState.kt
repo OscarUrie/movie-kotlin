@@ -32,5 +32,6 @@ data class ApiState(
 enum class ApiResult {
     Idle,
     Success,
-    Error
+    Error,
+    Loading
 }

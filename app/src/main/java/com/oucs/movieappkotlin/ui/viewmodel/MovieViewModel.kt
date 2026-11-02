@@ -4,10 +4,12 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.oucs.movieappkotlin.common.Constantes
 import com.oucs.movieappkotlin.repository.MovieRepository
 import com.oucs.movieappkotlin.retrofit.models.Cast
 import com.oucs.movieappkotlin.retrofit.models.Movie
 import com.oucs.movieappkotlin.retrofit.models.MovieDetail
+import com.oucs.movieappkotlin.retrofit.models.MovieVideo
 import com.oucs.movieappkotlin.ui.movies.ApiResult
 import com.oucs.movieappkotlin.ui.movies.ApiState
 import kotlinx.coroutines.Job
@@ -22,6 +24,8 @@ class MovieViewModel:ViewModel() {
     val apiState: MutableLiveData<ApiState> = MutableLiveData(ApiState())
     val movieDetail: MutableLiveData<MovieDetail?> = MutableLiveData(null)
     val movieCast: MutableLiveData<List<Cast>> = MutableLiveData(emptyList())
+
+    val trailerState: MutableLiveData<MovieVideoState> = MutableLiveData(MovieVideoState())
 
     val movieDetailState: MediatorLiveData<MovieDetailState> =
         MediatorLiveData(MovieDetailState()).apply {
@@ -80,5 +84,30 @@ class MovieViewModel:ViewModel() {
     fun clearDetailDate() {
         movieDetail.value = null
         movieCast.value = emptyList()
+        trailerState.value = MovieVideoState()
+    }
+
+    fun loadMovieVideos() {
+        viewModelScope.launch {
+            val id = movieDetail.value?.id ?: return@launch
+            trailerState.value = MovieVideoState(result = ApiResult.Loading)
+            val result = movieRepository.getMovieVideos(id)
+            if (result == null) {
+                trailerState.value = MovieVideoState(result = ApiResult.Error)
+                return@launch
+            }
+            val videoUrl = getFirstVideoUrl(result)
+            trailerState.value = MovieVideoState(videoUrl, result = ApiResult.Success)
+            trailerState.postValue(MovieVideoState())
+        }
+    }
+
+    private fun getFirstVideoUrl(list: List<MovieVideo>?): String {
+        if (list.isNullOrEmpty()) return ""
+        val video = list
+            .firstOrNull {
+                it.type == "Trailer" && it.site == "YouTube" && it.key.isNotEmpty()
+            } ?: return ""
+        return Constantes.YOUTUBE + video.key
     }
 }

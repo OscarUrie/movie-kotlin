@@ -2,6 +2,7 @@ package com.oucs.movieappkotlin.retrofit
 
 import com.oucs.movieappkotlin.retrofit.models.MovieCastResponse
 import com.oucs.movieappkotlin.retrofit.models.MovieDetail
+import com.oucs.movieappkotlin.retrofit.models.MovieVideosResponse
 import com.oucs.movieappkotlin.retrofit.models.MoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -28,4 +29,7 @@ interface TheMovieDBService {
 
     @GET("movie/{id}/credits")
     suspend fun getMovieCast(@Path("id") idMovie: Int): Response<MovieCastResponse>
+
+    @GET("movie/{id}/videos")
+    suspend fun getMovieVideos(@Path("id") idMovie: Int): Response<MovieVideosResponse>
 }

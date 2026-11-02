@@ -1,10 +1,12 @@
 package com.oucs.movieappkotlin.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -17,6 +19,8 @@ import com.oucs.movieappkotlin.common.Constantes
 import com.oucs.movieappkotlin.databinding.FragmentDetailMovieBinding
 import com.oucs.movieappkotlin.retrofit.models.Cast
 import com.oucs.movieappkotlin.retrofit.models.MovieDetail
+import com.oucs.movieappkotlin.ui.movies.ApiResult.Error
+import com.oucs.movieappkotlin.ui.movies.ApiResult.Success
 import com.oucs.movieappkotlin.ui.viewmodel.MovieViewModel
 
 class DetailMovieFragment : Fragment() {
@@ -65,8 +69,9 @@ class DetailMovieFragment : Fragment() {
             //TODO
         }
         binding.seeTrailer.setOnClickListener {
-            //TODO
+            viewModel.loadMovieVideos()
         }
+        binding.loader.root.setOnClickListener { }
         binding.castListView.adapter = movieCastAdapter
         binding.categoryListView.adapter = categoriesAdapter
     }
@@ -89,11 +94,29 @@ class DetailMovieFragment : Fragment() {
                 ).show()
             }
         }
+        viewModel.trailerState.observe(viewLifecycleOwner) { state ->
+            binding.loader.root.isVisible = state.isLoading()
+            when (state.result) {
+                Success if state.url.isNotEmpty() -> {
+                    launchPlayerIntent(state.url)
+                }
+
+                Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.something_went_wrong,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                else -> {}
+            }
+        }
     }
 
     private fun bindMovieDetail(movieDetail: MovieDetail) {
         binding.movieTitle.text = movieDetail.title
-        binding.movieDate.text = movieDetail.release_date
+        binding.movieDate.text = Constantes.getDateFormat(movieDetail.release_date)
         binding.movieDuration.text = Constantes.getRuntimeLabel(movieDetail.runtime)
         binding.movieDescription.text = movieDetail.overview
         binding.moviePoster.load(Constantes.URL_ORIGINAL_IMAGE + movieDetail.backdrop_path) {
@@ -104,5 +127,11 @@ class DetailMovieFragment : Fragment() {
 
     private fun bindMovieCast(list: List<Cast>) {
         movieCastAdapter.submitList(list)
+    }
+
+    private fun launchPlayerIntent(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }
