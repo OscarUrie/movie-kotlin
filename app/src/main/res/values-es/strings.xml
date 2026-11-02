@@ -7,6 +7,7 @@
     <string name="home_ask">¿Qué quieres ver hoy?</string>
     <string name="language_key">es-MX</string>
     <string name="main_cast_label">Elenco principal</string>
+    <string name="categories_label">Categoría(s)</string>
     <string name="most_popular_label">Más populares</string>
     <string name="movie_title">Péliculas</string>
     <string name="novel_title">Novelas</string>
@@ -16,4 +17,6 @@
     <string name="series_title">Series</string>
     <string name="see_more">Ver más</string>
     <string name="something_went_wrong">Algo salió mal</string>
+    <string name="back">Regresar</string>
+    <string name="make_as_favourite">Marcar como favorito</string>
 </resources>

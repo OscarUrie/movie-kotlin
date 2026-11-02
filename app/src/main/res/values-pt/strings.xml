@@ -7,6 +7,7 @@
     <string name="home_ask">O que você quer assistir hoje?</string>
     <string name="language_key">pt-PT</string>
     <string name="main_cast_label">Elenco principal</string>
+    <string name="categories_label">Categoria(s)</string>
     <string name="most_popular_label">Mais populares</string>
     <string name="movie_title">Filmes</string>
     <string name="novel_title">Novelas</string>
@@ -16,4 +17,6 @@
     <string name="series_title">Séries</string>
     <string name="see_more">Ver mais</string>
     <string name="something_went_wrong">Algo deu errado</string>
+    <string name="back">Voltar</string>
+    <string name="make_as_favourite">adicionar aos favoritos</string>
 </resources>

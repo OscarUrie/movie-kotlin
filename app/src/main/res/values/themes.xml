@@ -16,6 +16,7 @@
         <item name="android:colorBackground">@color/background4</item>
         <item name="colorOnBackground">@color/white</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.MovieApp.Headline3</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MovieApp.Headline5</item>
         <item name="textAppearanceHeadline6">@style/TextAppearance.MovieApp.Headline6</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.MovieApp.Subtitle1</item>
         <item name="textAppearanceSubtitle2">@style/TextAppearance.MovieApp.Subtitle2</item>

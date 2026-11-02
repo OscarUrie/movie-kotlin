@@ -16,16 +16,9 @@ data class MovieCastResponse(
  * Cast
  */
 data class Cast(
-    val adult: Boolean,
-    val gender: Int,
     val id: Int,
-    val known_for_department: String,
+    val character: String,
     val name: String,
     val original_name: String,
-    val popularity: Int,
-    val profile_path: String,
-    val cast_id: Long,
-    val character: String,
-    val credit_id: String,
-    val order: Int,
+    val profile_path: String
 )

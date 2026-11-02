@@ -10,6 +10,7 @@
     <string name="home_ask">What would you like to watch today?</string>
     <string name="language_key">en-US</string>
     <string name="main_cast_label">Main cast</string>
+    <string name="categories_label">Categories</string>
     <string name="most_popular_label">Most popular</string>
     <string name="movie_title">Movies</string>
     <string name="novel_title">Novel</string>
@@ -19,4 +20,6 @@
     <string name="series_title">Series</string>
     <string name="see_more">See more</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="back">Back</string>
+    <string name="make_as_favourite">add to favorites</string>
 </resources>

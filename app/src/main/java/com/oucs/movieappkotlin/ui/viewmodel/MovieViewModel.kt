@@ -1,10 +1,13 @@
 package com.oucs.movieappkotlin.ui.viewmodel
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oucs.movieappkotlin.repository.MovieRepository
+import com.oucs.movieappkotlin.retrofit.models.Cast
 import com.oucs.movieappkotlin.retrofit.models.Movie
+import com.oucs.movieappkotlin.retrofit.models.MovieDetail
 import com.oucs.movieappkotlin.ui.movies.ApiResult
 import com.oucs.movieappkotlin.ui.movies.ApiState
 import kotlinx.coroutines.Job
@@ -17,6 +20,20 @@ class MovieViewModel:ViewModel() {
     val topRatedMovies: MutableLiveData<List<Movie>> = MutableLiveData()
     val upcomingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
     val apiState: MutableLiveData<ApiState> = MutableLiveData(ApiState())
+    val movieDetail: MutableLiveData<MovieDetail?> = MutableLiveData(null)
+    val movieCast: MutableLiveData<List<Cast>> = MutableLiveData(emptyList())
+
+    val movieDetailState: MediatorLiveData<MovieDetailState> =
+        MediatorLiveData(MovieDetailState()).apply {
+            addSource(movieDetail) {
+                value = if (it != null) value?.copy(detailResult = ApiResult.Success)
+                else value?.copy(detailResult = ApiResult.Idle)
+            }
+            addSource(movieCast) {
+                value = if (it.isNotEmpty()) value?.copy(castResult = ApiResult.Success)
+                else value?.copy(castResult = ApiResult.Idle)
+            }
+        }
 
     private lateinit var job: Job
 
@@ -48,5 +65,20 @@ class MovieViewModel:ViewModel() {
                 upcomingStatus = if (result2 == null) ApiResult.Error else ApiResult.Success
             )
         }
+    }
+
+    fun loadMovieDetail(id: Int) {
+        viewModelScope.launch {
+            movieDetailState.value = MovieDetailState()
+            val result = movieRepository.getMovieDetail(id)
+            val result2 = movieRepository.getMovieCast(id)
+            result?.let { movieDetail.value = it }
+            result2?.let { movieCast.value = it }
+        }
+    }
+
+    fun clearDetailDate() {
+        movieDetail.value = null
+        movieCast.value = emptyList()
     }
 }

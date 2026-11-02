@@ -51,7 +51,9 @@ class MovieListFragment : Fragment(), AdapterListener {
     }
 
     override fun onClick(movieId: Int) {
-        findNavController().navigate(R.id.action_navigation_movies_to_navigation_dashboard)
+        val bundle = Bundle()
+        bundle.putInt("movie_id", movieId)
+        findNavController().navigate(R.id.action_navigation_movies_to_navigation_dashboard, bundle)
     }
 
     private fun initView() {
